@@ -1,9 +1,14 @@
 package com.example;
 
+import com.example.model.User;
+import com.example.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
+
+import java.util.stream.Stream;
 
 @SpringBootApplication
 public class YinBootDemoApplication {
@@ -13,11 +18,15 @@ public class YinBootDemoApplication {
     }
 }
 
-@RestController
-class HelloController {
+@Component
+class UserDataInitiatorCLR implements CommandLineRunner {
+    @Autowired
+    UserRepository userRepo;
 
-    @GetMapping("/")
-    public String hello() {
-        return "Hello, Boot!";
+    @Override
+    public void run(String... strings) throws Exception {
+        Stream.of("Yin Guo Wei", "Rick", "Jon", "James", "Aimee", "Will").forEach(
+                name -> userRepo.save(new User(name))
+        );
     }
 }
