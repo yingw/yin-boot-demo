@@ -21,8 +21,8 @@ public class UserController {
     }*/
 
     @PostMapping("/users")
-    public User createNewUser(@RequestParam String name) {
-        return userRepo.save(new User(name));
+    public User createNewUser(@RequestBody User user) {
+        return userRepo.save(user);
     }
 
     @DeleteMapping("/users/{id}")
