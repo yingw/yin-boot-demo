@@ -40,6 +40,7 @@ public class UserController {
         return userRepo.findByNameLike("%" + name + "%");
     }
 
+    // ...
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable("id") Long id) { return userRepo.getOne(id);}
 
