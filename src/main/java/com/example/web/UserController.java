@@ -39,4 +39,8 @@ public class UserController {
     public List<User> findUsers(@RequestParam(defaultValue = "") String name) {
         return userRepo.findByNameLike("%" + name + "%");
     }
+
+    @GetMapping("/users/{id}")
+    public User getUser(@PathVariable("id") Long id) { return userRepo.getOne(id);}
+
 }
