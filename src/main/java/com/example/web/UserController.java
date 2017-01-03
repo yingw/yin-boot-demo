@@ -2,6 +2,7 @@ package com.example.web;
 
 import com.example.model.User;
 import com.example.repository.UserRepository;
+import com.example.repository.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,10 @@ import java.util.List;
 @RestController
 public class UserController {
     @Autowired
-    UserRepository userRepo;
+    UserRepository userRepository;
+
+//    @Autowired
+//    UserService userService;
 
 /*    @GetMapping("/users")
     public List<User> listAllUsers() {
@@ -22,26 +26,34 @@ public class UserController {
 
     @PostMapping("/users")
     public User createNewUser(@RequestBody User user) {
-        return userRepo.save(user);
+        return userRepository.save(user);
     }
 
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable("id") Long id) {
-        userRepo.delete(id);
+        userRepository.delete(id);
     }
 
     @PutMapping("/users/{id}")
     public User updateUser(@PathVariable("id") Long id, User user) {
-        return userRepo.save(user); //TODO: merge
+        return userRepository.save(user); //TODO: merge
     }
 
     @GetMapping("/users")
     public List<User> findUsers(@RequestParam(defaultValue = "") String name) {
-        return userRepo.findByNameLike("%" + name + "%");
+        return userRepository.findByNameLike("%" + name + "%");
     }
 
     // ...
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable("id") Long id) { return userRepo.getOne(id);}
+    public User getUser(@PathVariable("id") Long id) {
+        System.out.println("UserController.getUser");
+//        return user;
+//        User user2 = userService.findUser(id);
+//        System.out.println("user2 = " + user2);
+        User user = userRepository.findOne(id);
+        System.out.println("user = [" + user + "]");
+        return user;
+    }
 
 }

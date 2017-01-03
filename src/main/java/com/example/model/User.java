@@ -3,6 +3,8 @@ package com.example.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -10,11 +12,20 @@ import java.time.LocalDate;
  */
 @Entity
 public class User {
+
     @Id
     @GeneratedValue
-    private Long id;
-    private String name;
-    private LocalDate created;
+    Long id;
+    @NotNull
+    String name;
+    LocalDate created;
+
+    public User() {
+    }
+
+    public User(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
@@ -41,14 +52,6 @@ public class User {
     public User setCreated(LocalDate created) {
         this.created = created;
         return this;
-    }
-
-    public User() {
-    }
-
-    public User(String name) {
-        this.name = name;
-        this.created = LocalDate.now();
     }
 
     @Override

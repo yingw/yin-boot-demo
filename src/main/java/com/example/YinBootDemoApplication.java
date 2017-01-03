@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 @SpringBootApplication
@@ -26,7 +27,7 @@ class UserDataInitiatorCLR implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         Stream.of("Yin Guo Wei", "Rick", "Jon", "James", "Aimee", "Will").forEach(
-                name -> userRepo.save(new User(name))
+                name -> userRepo.save(new User(name).setCreated(LocalDate.now()))
         );
     }
 }
